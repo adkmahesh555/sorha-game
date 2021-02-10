@@ -97,9 +97,7 @@ var game = {
         }
         if(this.playersType.none.length){
             for(var i=0;i<this.playersType.none.length;i++){
-                this.skipTurn.push(this.playersType.none[i]);
-                //var cellId = this.homes[this.playersType.none[i]].split('');
-                
+                this.skipTurn.push(this.playersType.none[i]);                
             }
         }
         for(var i=0;i<actualPlayers.length;i++){
@@ -123,8 +121,7 @@ var game = {
             sorhaShuffler.removeAttribute("disabled");
         }
     },
-    autoShuffleAndMove: function() {
-        
+    autoShuffleAndMove: function() {        
         this.shuffleSorha();        
         
         setTimeout(() => {
@@ -165,25 +162,19 @@ var game = {
 
         if((this.replayAllowedFor.indexOf(this.resultSteps) > -1 || this.hasCut) && this.skipTurn.indexOf(this.currentTurn) === -1){
             nextIndex = currentIndex;
-        }
-        //if(this.replayAllowedFor.indexOf(this.resultSteps) === -1 && this.hasCut === false)
+        }        
         else{
             var circularPlayer = this.players.slice(currentIndex);
             if (currentIndex > 0){
                 circularPlayer = circularPlayer.concat(this.players.slice(0,currentIndex))
             }
             //console.log(circularPlayer, this.players);
-
             for(var k=0;k<circularPlayer.length - 1;k++){ //skip current player with k + 1
                 if(this.skipTurn.indexOf(circularPlayer[k+1]) === -1){
                     this.currentTurn = circularPlayer[k+1];
                     break;
                 }
-            }
-            /*if(currentIndex + 1 == this.players.length)
-                this.currentTurn = this.players[0];
-            else
-                this.currentTurn = this.players[currentIndex + 1];*/
+            }            
         }            
         
         this.clearResult();
@@ -236,9 +227,7 @@ var game = {
                 }
                 for(var k =0; k<sendToHomeList.length;k++){
                     this.sendHome(sendToHomeList[k],i2,j2)
-                }
-                //this.board[i2][j2] = [];
-                
+                }               
             }
             this.board[i2][j2].push(pawn);         
             
@@ -389,19 +378,8 @@ var game = {
                 }
         
                 if (this.board[i][j].length){
-                   // this.crossLines(x,y,cellSide,"aliceblue", "0.5")
                     this.drawPawns(this.board[i][j],x,y);
-                }
-                if(['R','B','G','Y'].includes(this.board[i][j])){
-                    /*crossLines(x,y,cellSide,"aliceblue",0.5)
-                    
-                    ctx.strokeStyle = "black";
-                    ctx.fillStyle = pawnColors[this.board[i][j]];
-                    ctx.beginPath();
-                    ctx.arc(x + cellSide * 0.25, y + cellSide * 0.25, cellSide / 8, 0, 2 * Math.PI);
-                    ctx.fill();
-                    ctx.stroke();*/
-                }
+                }                
             }
         }
     },
@@ -422,7 +400,7 @@ var game = {
             game.awaitingShuffle = false;
             sorhaShuffler.setAttribute("disabled", "disabled")
         }, shuffleTime);
-        console.log(game.resultSteps);
+       
     },
     saveSetting: function(){
         var rbs = document.querySelectorAll(".radioPlayer");
